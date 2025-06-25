@@ -1,5 +1,7 @@
 ﻿using ECommerce.Catalog.Domain.Aggregates;
 using ECommerce.Catalog.Domain.Repositories;
+using ECommerce.Catalog.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,42 +10,64 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Catalog.Infrastructure.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository(CatalogDbContext catalogDbContext) : IProductRepository
     {
+        //ister postgresql ister dapper.... 
 
-        public Task<Product> AddAsync(Product entity)
+        public async Task<Product> AddAsync(Product entity)
         {
-            throw new NotImplementedException();
+            await catalogDbContext.Products.AddAsync(entity);
+            await catalogDbContext.SaveChangesAsync();
+
+            return entity;
+
         }
 
-        public Task<Product> DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var product = await GetByIdAsync(id);
+            catalogDbContext.Products.Remove(product);
+            await catalogDbContext.SaveChangesAsync();
+
+
         }
 
-        public Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await catalogDbContext.Products
+                                         .AsNoTracking()
+                                         .ToListAsync();
         }
 
-        public Task<Product> GetByIdAsync(Guid id)
+        public async Task<Product> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await catalogDbContext.Products
+                                  .AsNoTracking()
+                                  .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public Task<IEnumerable<Product>> GetProductsByCategoryAsync(int id)
+        public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int id)
         {
-            throw new NotImplementedException();
+            return await catalogDbContext.Products
+                                  .AsNoTracking()
+                                  .Where(p => p.CategoryId == id)
+                                  .ToListAsync();
         }
 
-        public Task<IEnumerable<Product>> SearchByNameAsync(string name)
+        public async Task<IEnumerable<Product>> SearchByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return await catalogDbContext.Products
+                                  .AsNoTracking()
+                                  .Where(p => p.Name.Contains(name))
+                                  .ToListAsync();
+
         }
 
-        public Task<Product> UpdateAsync(Product entity)
+        public async Task UpdateAsync(Product entity)
         {
-            throw new NotImplementedException();
+
+            catalogDbContext.Products.Update(entity);
+            await catalogDbContext.SaveChangesAsync();
         }
     }
 }

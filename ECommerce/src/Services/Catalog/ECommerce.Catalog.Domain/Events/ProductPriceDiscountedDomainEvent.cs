@@ -1,4 +1,5 @@
 ﻿using ECommerce.SharedLibrary.Domain;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Catalog.Domain.Events
 {
-    public class ProductPriceDiscountedDomainEvent : DomainEvent
+    public class ProductPriceDiscountedDomainEvent : DomainEvent, INotification
     {
         public Guid ProducId { get; private set; }
         public decimal OldPrice { get; private set; }

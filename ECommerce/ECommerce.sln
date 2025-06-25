@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36202.13 d17.14
+VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Catalog.Apllication", "src\Services\Catalog\ECommerce.Catalog.Apllication\ECommerce.Catalog.Apllication.csproj", "{3B098F02-011E-427B-AEEC-777E832E7BD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Catalog.Infrastructure", "src\Services\Catalog\ECommerce.Catalog.Infrastructure\ECommerce.Catalog.Infrastructure.csproj", "{615FCA75-7C28-47F3-9E1B-F28A6D5DAFD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Catalog.API", "src\Services\Catalog\ECommerce.Catalog.API\ECommerce.Catalog.API.csproj", "{D5D00C43-254C-4611-9461-0E338D67824A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{615FCA75-7C28-47F3-9E1B-F28A6D5DAFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{615FCA75-7C28-47F3-9E1B-F28A6D5DAFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{615FCA75-7C28-47F3-9E1B-F28A6D5DAFD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5D00C43-254C-4611-9461-0E338D67824A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5D00C43-254C-4611-9461-0E338D67824A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5D00C43-254C-4611-9461-0E338D67824A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5D00C43-254C-4611-9461-0E338D67824A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{FCA09DE0-7A25-47AD-9C59-B26344CABF71} = {57F2D7C9-1762-4C76-AA25-3E22B7D03354}
 		{3B098F02-011E-427B-AEEC-777E832E7BD0} = {57F2D7C9-1762-4C76-AA25-3E22B7D03354}
 		{615FCA75-7C28-47F3-9E1B-F28A6D5DAFD6} = {57F2D7C9-1762-4C76-AA25-3E22B7D03354}
+		{D5D00C43-254C-4611-9461-0E338D67824A} = {57F2D7C9-1762-4C76-AA25-3E22B7D03354}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15C74EFF-2940-46FB-ADCC-3E54ECF31459}
