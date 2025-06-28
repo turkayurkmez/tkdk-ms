@@ -35,6 +35,7 @@ namespace ECommerce.Catalog.Infrastructure.Repositories
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await catalogDbContext.Products
+                                         .Include(p => p.Category) // Category bilgilerini de dahil et
                                          .AsNoTracking()
                                          .ToListAsync();
         }

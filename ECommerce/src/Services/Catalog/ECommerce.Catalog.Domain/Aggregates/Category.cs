@@ -25,7 +25,7 @@ namespace ECommerce.Catalog.Domain.Aggregates
             
         }
 
-        public IQueryable<Product> Products { get; set; }
+        public IList<Product> Products { get; set; }
 
     }
 }

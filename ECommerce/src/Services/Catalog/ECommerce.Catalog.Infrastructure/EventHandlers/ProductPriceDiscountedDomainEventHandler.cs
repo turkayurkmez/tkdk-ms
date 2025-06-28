@@ -21,6 +21,8 @@ namespace ECommerce.Catalog.Infrastructure.EventHandlers
         {
             _logger.LogInformation($"{notification.ProducId} id'li ürünün eski fiyatı, {notification.OldPrice}, yeni fiyatı ise {notification.NewPrice} olarak güncellendi");
 
+            //ürün fiyatı indirim yapıldığında yapılacak işlemler burada yer alabilir.
+
             return Task.CompletedTask;
         }
     }
