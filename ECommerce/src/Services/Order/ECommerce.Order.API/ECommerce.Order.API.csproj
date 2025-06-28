@@ -7,16 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\ECommerce.SharedEventBus\ECommerce.SharedEventBus.csproj" />
-    <ProjectReference Include="..\ECommerce.Basket.Infrastructure\ECommerce.Basket.Infrastructure.csproj" />
+    <ProjectReference Include="..\ECommerce.Order.Infrastructure\ECommerce.Order.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,31 @@
+using ECommerce.Basket.API.Consumers;
 using ECommerce.Basket.API.Services;
+using ECommerce.SharedEventBus;
+using MassTransit;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
+
+builder.Services.AddMassTransit(config =>
+{
+
+    config.AddConsumer<BasketProductPriceDiscountedConsumer>();
+    config.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+        cfg.ReceiveEndpoint("basket-service", e =>
+        {
+            e.ConfigureConsumer<BasketProductPriceDiscountedConsumer>(context);
+        });
+    });
+});
 
 var app = builder.Build();
 
