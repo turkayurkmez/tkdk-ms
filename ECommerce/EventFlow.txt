@@ -1,0 +1,23 @@
+﻿Olay Analiz Dokümanı
+1. Happy Path: Her şeyin beklendiği gibi çalıştığı senaryo. Mesajlar doğru bir şekilde gönderilir ve alınır.
+2. Olumsuz Senaryolar: Mesajın gönderilememesi veya alınamaması durumları. Problem tespiti ve uygun pattern seçimi. Aynı zamanda; ters akış senaryoları da düşünülmeli.
+
+Happy Path Senaryosu:
+   1. Sipariş oluşturuldu (OrderId, CustomerId, OrderItems) olayı tetiklenir.
+   2. Stock servisi, siparişteki ürünlerin stokta olup olmadığını kontrol eder.
+   3. Eğer stokta yeterli ürün varsa "stok yeterli" olayı tetiklenir.
+   4. Payment servisi, stock servisi tarafından gönderilen "stok yeterli" olayını alır ve ödeme işlemini başlatır.
+   5. Ödeme başarılı olursa "ödeme başarılı" olayı tetiklenir.
+   6. Order servisi, ödeme başarılı olayını alır ve siparişi tamamlar.
+
+Olumsuz Akış:
+   1. Stock servisi, stokta yeterli ürün olmadığını tespit ederse "stok yetersiz" olayı tetiklenir.
+   2. Order servisi, "stok yetersiz" olayını alır ve siparişi iptal eder.
+   3. Payment servisi, "ödeme başarısız" olayını fırlatır.
+   4. Order servisi, "ödeme başarısız" olayını alır ve siparişi iptal eder.
+
+
+   Bu olay akışını yönetmek için 2 seçeneğimiz var:
+   1. Careography: Olay akışını manuel olarak yönetmek, her adımı tek tek kontrol etmek.
+   
+

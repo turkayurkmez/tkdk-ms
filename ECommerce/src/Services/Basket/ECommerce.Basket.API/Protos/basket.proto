@@ -1,0 +1,56 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "ECommerce.Basket.API.Protos";
+
+package basket;
+
+/*
+Servisimizde:
+  1. GetBasket olsun. Parametre olarak GetBasketRequest alsın ve BasketResponse döndürsün.
+  2. AddItemToBasket olsun. Parametre olarak AddItemToBasketRequest alsın ve BasketResponse döndürsün.
+  3. UpdateBasket olarak AddItemToBasketRequest alsın ve BasketResponse döndürsün. 
+
+*/
+
+service BasketService {
+  // Get the basket for a user
+  rpc GetBasket (GetBasketRequest) returns (BasketResponse);
+
+  // Add an item to the basket
+  rpc AddItemToBasket (AddItemToBasketRequest) returns (BasketResponse);
+
+  // Update the basket
+  rpc UpdateBasket (UpdateBasketRequest) returns (BasketResponse);
+}
+
+// Request message for getting a basket
+message GetBasketRequest {
+  string buyer_id = 1; // User ID to get the basket for
+}
+
+// Request message for adding an item to the basket
+message AddItemToBasketRequest {
+  string buyer_id = 1; // User ID to add the item for
+  BasketItem item = 2; // Product ID to add
+ 
+}
+
+// Request message for updating the basket
+message UpdateBasketRequest {
+  string buyer_id = 1; // User ID to update the basket for
+  repeated BasketItem items = 2; // Product ID to update
+}
+
+// Response message for basket operations
+message BasketResponse {
+  string buyer_id = 1; // User ID for the basket
+  repeated BasketItem items = 2; // List of items in the basket
+  double total_price = 3; // Total price of the items in the basket
+}
+
+message BasketItem {
+  string product_id = 1; // Product ID
+  string product_name = 2; // Product name
+  int32 quantity = 3; // Quantity of the product
+  double price = 4; // Price of the product
+}

@@ -1,0 +1,11 @@
+﻿ Asenkron Mesajlaşma amacıyla kullanılan bazı desenler:
+ 1. Publish/Subscribe (Yayınla/Abone Ol): Mesajların birden çok alıcıya dağıtılması için kullanılır. Yayıncı mesajı yayınlar ve aboneler bu mesajları alır. RabbitMQ için Exchange.Fanout konsepti aslında bu deseni destekler.
+
+ 2. Tekrar deneme ve akım kesici: Mesaj işleme sırasında hata oluştuğunda mesajın tekrar denenmesi veya akım kesici kullanılarak sistemin korunması için kullanılır. RabbitMQ'da bu, Dead Letter Exchange (DLX) ve Retry Queue ile uygulanabilir.
+      -- Retry Pattern
+      -- Circuit Breaker Pattern
+ 3. Outbox Pattern: Eğer yayıncı servis, rabbitmq'ye mesaj gönderemezse; bu durumda mesajın kaybolmaması için Outbox Pattern kullanılabilir. Bu desen, mesajların veritabanında tutulmasını ve daha sonra RabbitMQ'ye gönderilmesini sağlar.
+
+ --Bazı kavramlar:
+ 1. Latency: Mesajın gönderilmesi ile alıcının mesajı alması arasındaki süre.
+ 2. Eventual Consistency: Sistemlerin zamanla tutarlı hale gelmesi, yani mesajların tüm sistemlerde aynı anda görünmemesi.
