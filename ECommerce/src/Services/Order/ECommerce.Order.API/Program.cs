@@ -1,11 +1,12 @@
 ﻿using ECommerce.Order.API.Consumers;
+using ECommerce.SharedEventBus;
 using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,6 +18,10 @@ builder.Services.AddMassTransit(config =>
      * Alıcı (Consumer) gelen mesajı alamazsa; nasıl bir çözüm uygulanabilir?
      *    1. Retry mekanizması: Alıcı mesajı alırken hata alırsa, belirli bir süre sonra tekrar denemek için yapılandırılabilir.
      */
+    config.AddConsumer<PaymentFailedEventConsumer>();
+    config.AddConsumer<PaymentSuccessEventConsumer>();
+    config.AddConsumer<StockNotAvailableEventConsumer>();
+
 
     config.AddConsumer<OrderProductPriceDiscountedConsumer>(c =>
     {
@@ -48,6 +53,7 @@ builder.Services.AddMassTransit(config =>
         {
             e.ConfigureConsumer<OrderProductPriceDiscountedConsumer>(context);
         });
+        cfg.ConfigureEndpoints(context);
     });
 });
 
@@ -60,8 +66,31 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
 
-app.MapControllers();
+
+
+
+app.MapGet("/getOrder", () => "ECommerce Order API is running!");
+
+app.MapPost("/createOrder", async (IPublishEndpoint publishEndPoint, OrderCreateRequest request) =>
+{
+    /*
+     *  Sipariş oluşturuldu (OrderId, CustomerId, OrderItems) olayı tetiklenir.
+     * gelen istekteki ürünleri al.
+     * db'ye kaydet.
+     * olay için gereken nesneyi oluştur.
+     * olayı publish et.
+     */
+    var orderItems = request.OrderItems.Select(x => new OrderItem(x.ProductId, x.Quantity, x.Price)).ToList();
+    var orderId = new Random().Next(1000, 10000); // Örnek olarak rastgele bir OrderId oluşturuyoruz
+    var command = new OrderCreateCommand(orderId, request.CustomerId, request.CreditCardInfo, orderItems);
+
+    var @event = new OrderCreatedEvent(command);
+
+    await publishEndPoint.Publish(@event);
+});
 
 app.Run();
+
+public record OrderCreateRequest(string CustomerId, string CreditCardInfo, List<OrderItemInRequest> OrderItems );
+public record OrderItemInRequest(string ProductId, int Quantity, decimal Price);

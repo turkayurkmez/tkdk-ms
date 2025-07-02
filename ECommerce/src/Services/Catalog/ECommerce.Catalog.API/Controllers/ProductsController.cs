@@ -1,6 +1,7 @@
 ﻿using ECommerce.Catalog.Apllication.Features.Products.Commands.DiscountProductPrice;
 using ECommerce.Catalog.Apllication.Features.Products.Queries.GetAllProducts;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@ namespace ECommerce.Catalog.API.Controllers
 
         [HttpPost]
         //discount product price post methodu
+        //[Authorize]
         public async Task<IActionResult> DiscountProductPrice([FromBody] DiscountProductPriceCommandRequest request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);

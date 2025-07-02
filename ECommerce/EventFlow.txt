@@ -8,6 +8,8 @@ Happy Path Senaryosu:
    3. Eğer stokta yeterli ürün varsa "stok yeterli" olayı tetiklenir.
    4. Payment servisi, stock servisi tarafından gönderilen "stok yeterli" olayını alır ve ödeme işlemini başlatır.
    5. Ödeme başarılı olursa "ödeme başarılı" olayı tetiklenir.
+      Kullanıcıya ödeme başarılı mesajı gönderilir.
+
    6. Order servisi, ödeme başarılı olayını alır ve siparişi tamamlar.
 
 Olumsuz Akış:
