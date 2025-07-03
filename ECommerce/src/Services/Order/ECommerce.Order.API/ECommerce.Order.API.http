@@ -4,3 +4,5 @@ GET {{ECommerce.Order.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+POST {{ECommerce.Order.API_HostAddress}}/orders/createorder
+{}

@@ -1,0 +1,31 @@
+@YARP_HostAddress = http://localhost:5141
+
+GET {{YARP_HostAddress}}/products/
+Accept: application/json
+
+###
+GET {{YARP_HostAddress}}/orders/getorder
+Accept: application/json
+###
+
+
+//Create Order Post Request
+
+POST {{YARP_HostAddress}}/orders/createorder
+Content-Type: application/json
+{
+  "customerId": "12345",
+  "creditCardInfo": "4111111111111111",
+  "orderItems": [
+    {
+      "productId": "67890",
+      "quantity": 2
+    },
+    {
+      "productId": "54321",
+      "quantity": 1
+    }
+  ]
+}
+
+###

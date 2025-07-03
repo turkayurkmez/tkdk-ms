@@ -70,9 +70,9 @@ if (app.Environment.IsDevelopment())
 
 
 
-app.MapGet("/getOrder", () => "ECommerce Order API is running!");
+app.MapGet("orders/getOrder", () => "ECommerce Order API is running!");
 
-app.MapPost("/createOrder", async (IPublishEndpoint publishEndPoint, OrderCreateRequest request) =>
+app.MapPost("orders/createOrder", async (IPublishEndpoint publishEndPoint, OrderCreateRequest request) =>
 {
     /*
      *  Sipariş oluşturuldu (OrderId, CustomerId, OrderItems) olayı tetiklenir.
